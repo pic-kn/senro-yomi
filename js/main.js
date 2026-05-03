@@ -362,14 +362,21 @@ function frame(now) {
   animationId = requestAnimationFrame(frame);
 }
 
-primaryAction.addEventListener("click", () => {
-  initAudio();
-  if (state.mode === "ready" || state.mode === "finished") startRound();
-  else if (state.mode === "paused") togglePause();
-});
+// primaryActionはボタン形式ではなくなったので削除（または互換性のために残す）
+if (primaryAction) {
+  primaryAction.addEventListener("click", () => {
+    initAudio();
+    if (state.mode === "ready" || state.mode === "finished") startRound();
+    else if (state.mode === "paused") togglePause();
+  });
+}
 
-difficultySelect.addEventListener("change", (e) => {
-  const val = e.target.value;
+// 難易度ボタン（グリッド内）のイベント委譲
+overlay.addEventListener("click", (e) => {
+  const btn = e.target.closest(".diff-btn");
+  if (!btn) return;
+  
+  const val = btn.dataset.value;
   if (val === "endless") {
     state.isEndless = true;
     state.roundDuration = 999;
@@ -377,7 +384,9 @@ difficultySelect.addEventListener("change", (e) => {
     state.isEndless = false;
     state.roundDuration = parseInt(val, 10);
   }
-  syncHud();
+  
+  initAudio();
+  startRound();
 });
 
 document.addEventListener("DOMContentLoaded", () => {
