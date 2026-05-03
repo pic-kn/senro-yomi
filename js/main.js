@@ -282,11 +282,7 @@ function finishRound() {
     fireConfetti(4000);
   }
 
-  if (improved) {
-    showOverlay("きろくこうしん", `かかったじかんは${formatTime(state.elapsed)}。ごほうび「${state.earnedReward}」をもらったよ。`, "もういちど");
-  } else {
-    showOverlay("できた", `かかったじかんは${formatTime(state.elapsed)}。きこえたことばは${accuracy}%あっていたよ。`, "もういちど");
-  }
+  showOverlay("できた", `かかったじかんは${formatTime(state.elapsed)}。きこえたことばは${accuracy}%あっていたよ。`, "もういちど");
 }
 
 function timeUpRound() {
