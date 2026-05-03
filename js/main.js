@@ -1,7 +1,7 @@
 import { routeSets, rewardsList } from './data.js';
 import { initAudio, playSound } from './audio.js';
 import { setupRecognition, tokenMatches, normalizeSpeech } from './speech.js';
-import { initRenderer, renderCanvas } from './renderer.js';
+import { initRenderer, renderCanvas, getRoutePoints } from './renderer.js';
 import { fireConfetti } from './confetti.js';
 
 let renderer;
@@ -77,6 +77,9 @@ function createState() {
     transcriptLog: [],
     transcript: "--",
     earnedReward: "",
+    cameraX: 0,
+    cameraY: 0,
+    cameraInitialized: false,
   };
 }
 
@@ -326,6 +329,21 @@ function frame(now) {
   state.correctFlashTimer = Math.max(0, state.correctFlashTimer - dt);
 
   const route = getCurrentRoute();
+  const points = getRoutePoints(route);
+  const targetIndex = Math.min(state.index, points.length - 1);
+  const targetPoint = points[targetIndex];
+
+  if (!state.cameraInitialized) {
+    state.cameraX = targetPoint.x;
+    state.cameraY = targetPoint.y;
+    state.cameraInitialized = true;
+  } else {
+    // フレームレート非依存の滑らかなLerp補間
+    const lerpSpeed = 1 - Math.exp(-6 * dt);
+    state.cameraX += (targetPoint.x - state.cameraX) * lerpSpeed;
+    state.cameraY += (targetPoint.y - state.cameraY) * lerpSpeed;
+  }
+
   renderCanvas(renderer.ctx, logicalWidth, logicalHeight, state, route, assets);
   
   animationId = requestAnimationFrame(frame);
