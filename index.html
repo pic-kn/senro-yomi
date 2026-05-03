@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>せんろ よみ</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="shell">
+      <section class="game-panel" aria-label="せんろ よみ">
+        <header class="hud" aria-live="polite">
+          <div>
+            <span id="timeLabel" class="label">のこり</span>
+            <strong id="time">120びょう</strong>
+          </div>
+          <div>
+            <span class="label">すすみ</span>
+            <strong id="progress">0/20</strong>
+          </div>
+          <div>
+            <span class="label">いちばん</span>
+            <strong id="best">--</strong>
+          </div>
+          <div>
+            <span class="label">できた</span>
+            <strong id="accuracy">100%</strong>
+          </div>
+          <div>
+            <span class="label">ごほうび</span>
+            <strong id="reward">0</strong>
+          </div>
+        </header>
+
+        <div class="stage-wrap">
+          <canvas id="gameCanvas" width="960" height="540" aria-label="せんろ よみ"></canvas>
+          <canvas id="confettiCanvas" class="confetti-canvas"></canvas>
+          
+          <div id="overlay" class="overlay">
+            <h1>せんろ よみ</h1>
+            <p>ひだりからじゅんばんに、こえにだしてよもう。まいくをつかうよ。</p>
+            <button id="primaryAction" type="button">はじめる</button>
+          </div>
+        </div>
+
+        <footer class="controls">
+          <div class="controls-main">
+            <label class="toggle-wrapper">
+              <input type="checkbox" id="endlessToggle"> 
+              <span>むせいげんモード</span>
+            </label>
+            <div class="status-indicator">
+              <div id="statusFeedback" class="status-feedback">まいくをおしてね</div>
+              <div id="statusTranscript" class="status-transcript">ひだりから よんでね</div>
+            </div>
+          </div>
+        </footer>
+        <div id="routeButtons" class="route-buttons" aria-label="Route choices"></div>
+      </section>
+    </main>
+
+    <script type="module" src="./js/main.js"></script>
+  </body>
+</html>

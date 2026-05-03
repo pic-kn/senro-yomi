@@ -1,0 +1,309 @@
+/* 電車・男児向けのクールなUI */
+:root {
+  --bg: #e0f2fe; /* 爽やかな空色 */
+  --panel: #ffffff;
+  --line: #1e293b; /* レールのような濃い紺色 */
+  --text: #0f172a;
+  --muted: #64748b;
+  --primary: #0284c7; /* 新幹線のラインのような青 */
+  --primary-dark: #0369a1;
+  --secondary: #facc15; /* ドクターイエローのような黄色 */
+  --secondary-dark: #ca8a04;
+  --success: #22c55e;
+  --danger: #ef4444; /* 信号の赤 */
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background-color: var(--bg);
+  background-image: 
+    linear-gradient(rgba(2, 132, 199, 0.1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(2, 132, 199, 0.1) 1px, transparent 1px);
+  background-size: 20px 20px; /* 方眼紙のようなメカニカルな背景 */
+  color: var(--text);
+  font-family: "Hiragino Sans", "Yu Gothic", "Noto Sans JP", sans-serif;
+}
+
+button {
+  background: var(--panel);
+  border: 3px solid var(--line);
+  border-radius: 8px; /* 角ばったデザイン */
+  color: var(--text);
+  cursor: pointer;
+  font: inherit;
+  font-weight: 800;
+  font-size: 16px;
+  min-height: 48px;
+  padding: 0 24px;
+  transition: all 0.1s ease;
+  box-shadow: 4px 4px 0 var(--line); /* はっきりした影 */
+  text-transform: uppercase;
+}
+
+button:hover {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0 var(--line);
+}
+
+button:active {
+  transform: translate(4px, 4px);
+  box-shadow: 0 0 0 var(--line);
+}
+
+/* プライマリアクションボタン（はじめる等） */
+.overlay button {
+  background: var(--primary);
+  color: white;
+  font-size: 24px;
+  min-height: 64px;
+  border-radius: 12px;
+  padding: 0 40px;
+}
+.overlay button:hover {
+  background: var(--primary-dark);
+}
+
+.shell {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 16px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.game-panel {
+  background: var(--panel);
+  border: 5px solid var(--line);
+  border-radius: 16px;
+  box-shadow: 8px 8px 0 rgba(15, 23, 42, 0.2);
+  max-width: 1080px;
+  overflow: hidden;
+  width: 100%;
+}
+
+.hud {
+  display: grid;
+  gap: 3px;
+  grid-template-columns: repeat(5, 1fr);
+  background: var(--line);
+  border-bottom: 5px solid var(--line);
+}
+
+.hud > div {
+  background: var(--panel);
+  padding: 16px 12px;
+  text-align: center;
+}
+
+.label {
+  color: var(--primary);
+  display: block;
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+
+.hud strong {
+  display: block;
+  font-size: clamp(24px, 3.5vw, 36px);
+  font-weight: 900;
+  line-height: 1.2;
+  margin-top: 4px;
+  color: var(--text);
+  font-family: monospace; /* 計器盤っぽく */
+}
+
+.stage-wrap {
+  aspect-ratio: 16 / 9;
+  position: relative;
+  width: 100%;
+  background: #f8fafc;
+  overflow: hidden;
+}
+
+canvas {
+  display: block;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+}
+
+.confetti-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 100;
+}
+
+.overlay {
+  align-items: center;
+  background: rgba(248, 250, 252, 0.95);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  display: flex;
+  flex-direction: column;
+  inset: 0;
+  justify-content: center;
+  padding: 28px;
+  position: absolute;
+  text-align: center;
+  z-index: 20;
+  transition: opacity 0.3s ease;
+}
+
+.overlay.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.overlay h1 {
+  color: var(--panel);
+  font-size: clamp(48px, 8vw, 80px);
+  font-weight: 900;
+  line-height: 1.1;
+  margin: 0 0 24px;
+  text-shadow: 
+    4px 4px 0 var(--primary),
+    -2px -2px 0 var(--line),
+    2px -2px 0 var(--line),
+    -2px 2px 0 var(--line);
+  animation: bounceIn 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes bounceIn {
+  0% { transform: scale(0.5) rotate(-2deg); opacity: 0; }
+  50% { transform: scale(1.1) rotate(1deg); opacity: 1; }
+  100% { transform: scale(1) rotate(0deg); opacity: 1; }
+}
+
+.overlay p {
+  color: var(--text);
+  font-size: clamp(18px, 2.5vw, 24px);
+  font-weight: 800;
+  line-height: 1.6;
+  margin: 0 0 40px;
+  max-width: 600px;
+  background: var(--panel);
+  padding: 20px 32px;
+  border-radius: 8px;
+  border: 4px solid var(--line);
+  box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.1);
+}
+
+.controls {
+  padding: 16px 24px;
+  background: var(--bg);
+  border-top: 5px solid var(--line);
+}
+
+.controls-main {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.status-indicator {
+  display: flex;
+  flex-direction: column;
+  text-align: right;
+  background: #1e293b; /* デジタル表示っぽく黒背景 */
+  padding: 10px 20px;
+  border-radius: 8px;
+  border: 3px solid var(--line);
+  box-shadow: inset 0 2px 8px rgba(0,0,0,0.5);
+}
+
+.status-feedback {
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--success); /* 緑のLED風 */
+}
+
+.status-transcript {
+  font-size: 12px;
+  font-weight: 700;
+  color: #94a3b8;
+}
+
+.route-buttons {
+  background: var(--panel);
+  border-top: 3px solid var(--line);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding: 20px 24px;
+}
+
+.route-choice {
+  align-items: center;
+  background: var(--panel);
+  border: 3px solid var(--line);
+  border-radius: 8px;
+  color: var(--text);
+  display: inline-flex;
+  font-weight: 800;
+  gap: 10px;
+  min-height: 48px;
+  padding: 0 24px;
+  box-shadow: 3px 3px 0 var(--line);
+}
+
+.route-choice.active {
+  border-color: var(--line);
+  background: var(--primary);
+  color: white;
+  box-shadow: 3px 3px 0 var(--line);
+}
+
+.route-choice:hover {
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0 var(--line);
+}
+
+.route-swatch {
+  border-radius: 2px; /* 丸ではなく四角く */
+  display: inline-block;
+  height: 16px;
+  width: 24px;
+  border: 2px solid white;
+}
+
+.toggle-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 800;
+  color: var(--text);
+  cursor: pointer;
+  background: var(--panel);
+  padding: 10px 20px;
+  border-radius: 8px;
+  border: 3px solid var(--line);
+  box-shadow: 3px 3px 0 var(--line);
+}
+
+.toggle-wrapper input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  accent-color: var(--primary);
+}
+
+@media (max-width: 768px) {
+  .shell { padding: 8px; }
+  .game-panel { border-radius: 12px; border-width: 3px; }
+  .hud { grid-template-columns: repeat(3, 1fr); gap: 2px; border-width: 3px; }
+  .hud > div:nth-child(n+4) { display: none; }
+  .controls-main { flex-direction: column; align-items: stretch; }
+  .route-choice { flex: 1 1 calc(50% - 12px); justify-content: center; }
+}
