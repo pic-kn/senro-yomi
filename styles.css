@@ -167,7 +167,7 @@ canvas {
   top: 0;
   left: 0;
   right: 0;
-  bottom: 110px; /* フッターの高さ分を空ける */
+  bottom: 120px; /* フッターを絶対に覆わないようにする */
   padding: 40px 20px;
   text-align: center;
   z-index: 20;
@@ -176,7 +176,7 @@ canvas {
 }
 
 @media (max-width: 768px) {
-  .overlay { bottom: 90px; }
+  .overlay { bottom: 100px; }
 }
 
 .overlay h1.logo-text {

@@ -129,12 +129,19 @@ function syncHud() {
 }
 
 function showOverlay(title, copy, actionText) {
+  const overlay = document.querySelector("#overlay");
+  if (!overlay) return;
   overlay.classList.remove("hidden");
-  overlay.querySelector("h1").textContent = title;
+  const titleEl = overlay.querySelector("h1");
+  if (titleEl) titleEl.textContent = title;
+  
   const copyEl = document.querySelector("#overlayCopy");
   if (copyEl) copyEl.textContent = copy;
+  
   const startBtn = document.querySelector("#startButton");
-  if (startBtn) startBtn.textContent = actionText;
+  if (startBtn) {
+    startBtn.textContent = "しゅっぱつ！";
+  }
 }
 
 function hideOverlay() {
