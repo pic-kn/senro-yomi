@@ -194,59 +194,92 @@ canvas {
 
 .overlay p {
   color: var(--text);
-  font-size: clamp(18px, 2.5vw, 24px);
-  font-weight: 800;
-  line-height: 1.6;
-  margin: 0 0 40px;
-  max-width: 600px;
-  background: var(--panel);
-  padding: 20px 32px;
-  border-radius: 8px;
-  max-width: 600px;
-}
-
 .difficulty-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 16px;
+  gap: 20px;
   width: 100%;
-  max-width: 440px;
+  max-width: 480px;
   margin: 0 auto;
 }
 
 .diff-btn {
   appearance: none;
   background: white;
-  border: 3px solid var(--line);
-  border-radius: 12px;
+  border: 4px solid var(--line);
+  border-radius: 16px;
   color: var(--text);
   cursor: pointer;
   font-family: inherit;
-  font-size: 20px;
+  font-size: 22px;
   font-weight: 900;
-  padding: 16px;
-  box-shadow: 4px 4px 0 var(--line);
-  transition: all 0.1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  padding: 20px;
+  box-shadow: 0 6px 0 var(--line);
+  transition: all 0.15s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  position: relative;
+  overflow: hidden;
+}
+
+.diff-btn::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 50%;
+  background: rgba(255, 255, 255, 0.15);
+  pointer-events: none;
 }
 
 .diff-btn:hover {
-  transform: translate(2px, 2px);
-  box-shadow: 2px 2px 0 var(--line);
-  background-color: var(--primary);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 0 var(--line);
+}
+
+.diff-btn:active {
+  transform: translateY(4px);
+  box-shadow: 0 2px 0 var(--line);
+}
+
+/* ふつう */
+.diff-btn[data-value="120"] {
+  background-color: #3b82f6;
   color: white;
+  border-color: #1d4ed8;
+  box-shadow: 0 6px 0 #1d4ed8;
 }
+.diff-btn[data-value="120"]:hover { box-shadow: 0 8px 0 #1d4ed8; }
+.diff-btn[data-value="120"]:active { box-shadow: 0 2px 0 #1d4ed8; }
 
-.diff-btn[data-value="30"]:hover {
-  background-color: #ef4444; /* おには赤 */
+/* むずかしい */
+.diff-btn[data-value="60"] {
+  background-color: #f59e0b;
+  color: white;
+  border-color: #b45309;
+  box-shadow: 0 6px 0 #b45309;
 }
+.diff-btn[data-value="60"]:hover { box-shadow: 0 8px 0 #b45309; }
+.diff-btn[data-value="60"]:active { box-shadow: 0 2px 0 #b45309; }
 
-.diff-btn[data-value="60"]:hover {
-  background-color: #f59e0b; /* むずかしいはオレンジ */
+/* おに */
+.diff-btn[data-value="30"] {
+  background-color: #ef4444;
+  color: white;
+  border-color: #b91c1c;
+  box-shadow: 0 6px 0 #b91c1c;
 }
+.diff-btn[data-value="30"]:hover { box-shadow: 0 8px 0 #b91c1c; }
+.diff-btn[data-value="30"]:active { box-shadow: 0 2px 0 #b91c1c; }
 
-.diff-btn[data-value="endless"]:hover {
-  background-color: #10b981; /* むせいげんは緑 */
+/* むせいげん */
+.diff-btn[data-value="endless"] {
+  background-color: #10b981;
+  color: white;
+  border-color: #047857;
+  box-shadow: 0 6px 0 #047857;
 }
+.diff-btn[data-value="endless"]:hover { box-shadow: 0 8px 0 #047857; }
+.diff-btn[data-value="endless"]:active { box-shadow: 0 2px 0 #047857; }
 
 .controls {
   padding: 12px 20px;

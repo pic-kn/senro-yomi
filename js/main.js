@@ -385,8 +385,22 @@ overlay.addEventListener("click", (e) => {
     state.roundDuration = parseInt(val, 10);
   }
   
+  // 開始前にステートをリセットしてモードをplayingにする
+  const oldDuration = state.roundDuration;
+  const oldEndless = state.isEndless;
+  state = createState();
+  state.roundDuration = oldDuration;
+  state.isEndless = oldEndless;
+  state.mode = "playing";
+  
   initAudio();
-  startRound();
+  hideOverlay();
+  lastTime = performance.now();
+  
+  if (recognition) {
+    try { recognition.start(); } catch(e) { state.feedback = "まいくがつかえないよ"; }
+  }
+  syncHud();
 });
 
 document.addEventListener("DOMContentLoaded", () => {
