@@ -93,10 +93,21 @@ export function fireConfetti(durationMs = 4000) {
       animationId = requestAnimationFrame(loop);
     } else {
       ctx.clearRect(0, 0, lw, lh);
-      cancelAnimationFrame(animationId);
+      animationId = null;
     }
   }
 
   if (animationId) cancelAnimationFrame(animationId);
   animationId = requestAnimationFrame(loop);
+}
+
+export function stopConfetti() {
+  if (animationId) {
+    cancelAnimationFrame(animationId);
+    animationId = null;
+  }
+  particles = [];
+  if (ctx && canvas) {
+    ctx.clearRect(0, 0, canvas.offsetWidth, canvas.offsetHeight);
+  }
 }

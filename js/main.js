@@ -2,7 +2,7 @@ import { routeSets, rewardsList } from './data.js';
 import { initAudio, playSound } from './audio.js';
 import { setupRecognition, tokenMatches, normalizeSpeech } from './speech.js';
 import { initRenderer, renderCanvas, getRoutePoints } from './renderer.js';
-import { fireConfetti } from './confetti.js';
+import { fireConfetti, stopConfetti } from './confetti.js';
 
 let renderer;
 let recognition = null;
@@ -183,6 +183,7 @@ function handleSpokenText(text, isFinal) {
 }
 
 function startRound() {
+  stopConfetti();
   initAudio();
   if (recognition) {
     try { recognition.stop(); } catch(e) {}
@@ -301,6 +302,7 @@ function renderRouteButtons() {
 
 function selectRoute(key) {
   if (!routeSets[key]) return;
+  stopConfetti();
   if (recognition) {
     try { recognition.stop(); } catch(e) {}
   }
