@@ -4,32 +4,18 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <title>ハヤよみ特急</title>
-    <link rel="stylesheet" href="./styles.css?v=2.6" />
+    <link rel="stylesheet" href="./styles.css?v=2.7" />
   </head>
   <body>
     <main class="shell">
-      <section class="game-panel" aria-label="せんろ よみ">
-        <header class="hud" aria-live="polite">
-          <div>
-            <span id="timeLabel" class="label">のこり</span>
-            <strong id="time">120びょう</strong>
-          </div>
-          <div>
-            <span class="label">すすみ</span>
-            <strong id="progress">0/20</strong>
-          </div>
-          <div>
-            <span class="label">いちばん</span>
-            <strong id="best">--</strong>
-          </div>
-          <div>
-            <span class="label">できた</span>
-            <strong id="accuracy">100%</strong>
-          </div>
-        </header>
-
+      <section class="game-panel" aria-label="ハヤよみ特急">
         <div class="stage-wrap" id="stageWrap">
-          <canvas id="gameCanvas" aria-label="せんろ よみ"></canvas>
+          <div id="floatingTimer" class="floating-timer">
+            <span id="floatingLabel">のこり</span>
+            <strong id="floatingTime">--</strong>
+          </div>
+          
+          <canvas id="gameCanvas" aria-label="ハヤよみ特急"></canvas>
           <canvas id="confettiCanvas" class="confetti-canvas"></canvas>
           
           <div id="overlay" class="overlay">

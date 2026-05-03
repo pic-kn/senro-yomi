@@ -120,11 +120,12 @@ function syncHud() {
   const total = state.sheet.length;
   const remaining = state.isEndless ? 999 : Math.max(0, state.roundDuration - state.elapsed);
   const completed = state.mode === "finished" && state.index >= total;
-  timeLabelEl.textContent = completed ? "かかった" : "のこり";
-  timeEl.textContent = completed ? formatTime(state.elapsed) : formatTime(remaining);
-  progressEl.textContent = state.mode === "playing" ? "よんでね" : `${Math.min(state.index, total)}/${total}`;
-  bestEl.textContent = formatTime(state.bestTime);
-  accuracyEl.textContent = `${estimateAccuracy()}%`;
+  
+  const labelEl = document.querySelector("#floatingLabel");
+  const timeEl = document.querySelector("#floatingTime");
+  
+  if (labelEl) labelEl.textContent = completed ? "かかった" : "のこり";
+  if (timeEl) timeEl.textContent = completed ? formatTime(state.elapsed) : formatTime(remaining);
   
   if (statusFeedbackEl) statusFeedbackEl.textContent = state.feedback;
   if (statusTranscriptEl) statusTranscriptEl.textContent = state.mode === "finished" ? "できた" : "ひだりから よんでね";
