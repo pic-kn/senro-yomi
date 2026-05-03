@@ -126,9 +126,6 @@ function syncHud() {
   
   if (labelEl) labelEl.textContent = completed ? "かかった" : "のこり";
   if (timeEl) timeEl.textContent = completed ? formatTime(state.elapsed) : formatTime(remaining);
-  
-  if (statusFeedbackEl) statusFeedbackEl.textContent = state.feedback;
-  if (statusTranscriptEl) statusTranscriptEl.textContent = state.mode === "finished" ? "できた" : "ひだりから よんでね";
 }
 
 function showOverlay(title, copy, actionText) {
