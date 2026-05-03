@@ -232,7 +232,7 @@ function startRound() {
   if (recognition) {
     try { recognition.start(); } catch(e) { state.feedback = "まいくがつかえないよ"; }
   } else {
-    showOverlay("まいくがつかえないよ", "くろーむでひらいてね。", "もういちど");
+    showOverlay("まいくがつかえないよ", "くろーむでひらいてね。", "しゅっぱつ！");
   }
   syncHud();
 }
@@ -245,7 +245,7 @@ function togglePause() {
       try { recognition.stop(); } catch(e) {}
     }
     state.listening = false;
-    showOverlay("おやすみ", "よむのをとめたよ。つづけるときは、もういちどまいくをつかうよ。", "つづける");
+    showOverlay("おやすみ", "よむのをとめたよ。つづけるときは、もういちどまいくをつかうよ。", "しゅっぱつ！");
     syncHud();
   } else if (state.mode === "paused") {
     state.mode = "playing";
@@ -282,7 +282,7 @@ function finishRound() {
     fireConfetti(4000);
   }
 
-  showOverlay("できた", `かかったじかんは${formatTime(state.elapsed)}。きこえたことばは${accuracy}%あっていたよ。`, "もういちど");
+  showOverlay("できた", `かかったじかんは${formatTime(state.elapsed)}。きこえたことばは${accuracy}%あっていたよ。`, "しゅっぱつ！");
 }
 
 function timeUpRound() {
@@ -294,7 +294,7 @@ function timeUpRound() {
   state.feedback = "じかんだよ";
   playSound('wrong');
   syncHud();
-  showOverlay("じかんだよ", `${state.index}/${state.sheet.length}こ よめたよ。もういちどちょうせんしよう。`, "もういちど");
+  showOverlay("じかんだよ", `${state.index}/${state.sheet.length}こ よめたよ。もういちどちょうせんしよう。`, "しゅっぱつ！");
 }
 
 function renderRouteButtons() {
@@ -418,7 +418,7 @@ document.addEventListener("DOMContentLoaded", () => {
   
   const route = getCurrentRoute();
   renderCanvas(renderer.ctx, logicalWidth, logicalHeight, state, route, assets);
-  showOverlay("ハヤよみ特急", `${route.shortName}を、ひだりからじゅんばんによもう。`, "はじめる");
+  showOverlay("ハヤよみ特急", `${route.shortName}を、ひだりからじゅんばんによもう。`, "しゅっぱつ！");
   
   animationId = requestAnimationFrame(frame);
 });
