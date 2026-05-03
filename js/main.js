@@ -376,6 +376,10 @@ overlay.addEventListener("click", (e) => {
   const btn = e.target.closest(".diff-btn");
   if (!btn) return;
   
+  // 選択状態の見た目を即座に更新
+  document.querySelectorAll(".diff-btn").forEach(b => b.classList.remove("selected"));
+  btn.classList.add("selected");
+  
   const val = btn.dataset.value;
   if (val === "endless") {
     state.isEndless = true;
@@ -385,16 +389,17 @@ overlay.addEventListener("click", (e) => {
     state.roundDuration = parseInt(val, 10);
   }
   
-  // startRound内でcreateStateが呼ばれるため、現在の設定を一旦保持
+  // 設定を保持
   const nextDuration = state.roundDuration;
   const nextEndless = state.isEndless;
   
-  startRound();
-  
-  // startRound実行後に設定を上書き
-  state.roundDuration = nextDuration;
-  state.isEndless = nextEndless;
-  syncHud();
+  // 選択アニメーションを見せてから開始
+  setTimeout(() => {
+    startRound();
+    state.roundDuration = nextDuration;
+    state.isEndless = nextEndless;
+    syncHud();
+  }, 150);
 });
 
 document.addEventListener("DOMContentLoaded", () => {
