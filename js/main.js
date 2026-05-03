@@ -133,8 +133,10 @@ function syncHud() {
 function showOverlay(title, copy, actionText) {
   overlay.classList.remove("hidden");
   overlay.querySelector("h1").textContent = title;
-  overlay.querySelector("p").textContent = copy;
-  primaryAction.textContent = actionText;
+  const copyEl = document.querySelector("#overlayCopy");
+  if (copyEl) copyEl.textContent = copy;
+  const startBtn = document.querySelector("#startButton");
+  if (startBtn) startBtn.textContent = actionText;
 }
 
 function hideOverlay() {
@@ -298,30 +300,32 @@ function timeUpRound() {
 }
 
 function renderRouteButtons() {
-  routeButtons.innerHTML = "";
+  const container = document.querySelector("#routeButtonsOverlay");
+  if (!container) return;
+  container.innerHTML = "";
   Object.entries(routeSets).forEach(([key, route]) => {
     const button = document.createElement("button");
     button.type = "button";
     button.className = `route-choice${key === currentRouteKey ? " active" : ""}`;
-    button.innerHTML = `<span class="route-swatch" style="background:${route.color}"></span>${route.shortName}`;
+    button.innerHTML = `
+      <div class="route-card-inner">
+        <span class="route-swatch" style="background-color: ${route.color}"></span>
+        <span class="route-name">${route.shortName}</span>
+      </div>
+    `;
     button.addEventListener("click", () => selectRoute(key));
-    routeButtons.appendChild(button);
+    container.appendChild(button);
   });
 }
 
 function selectRoute(key) {
   if (!routeSets[key]) return;
-  stopConfetti();
-  if (recognition) {
-    try { recognition.stop(); } catch(e) {}
-  }
   currentRouteKey = key;
   state = createState();
   renderRouteButtons();
   syncHud();
   const route = getCurrentRoute();
   renderCanvas(renderer.ctx, logicalWidth, logicalHeight, state, route, assets);
-  showOverlay("せんろ よみ", `${route.shortName}を、ひだりからじゅんばんによもう。`, "はじめる");
 }
 
 function frame(now) {

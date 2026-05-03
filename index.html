@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <title>ハヤよみ特急</title>
-    <link rel="stylesheet" href="./styles.css?v=2.4" />
+    <link rel="stylesheet" href="./styles.css?v=2.5" />
   </head>
   <body>
     <main class="shell">
@@ -34,25 +34,37 @@
           
           <div id="overlay" class="overlay">
             <h1 class="logo-text">ハヤよみ特急</h1>
-            <div class="difficulty-grid">
-              <button class="diff-btn selected" data-value="120">
-                <span class="diff-rank">N</span>
-                <span class="diff-label">ふつう</span>
-              </button>
-              <button class="diff-btn" data-value="60">
-                <span class="diff-rank">H</span>
-                <span class="diff-label">むずかしい</span>
-              </button>
-              <button class="diff-btn" data-value="30">
-                <span class="diff-rank">O</span>
-                <span class="diff-label">おに</span>
-              </button>
-              <button class="diff-btn" data-value="endless">
-                <span class="diff-rank">∞</span>
-                <span class="diff-label">むせいげん</span>
-              </button>
+            
+            <div class="overlay-section">
+              <h2 class="section-title">どこを はしる？</h2>
+              <div id="routeButtonsOverlay" class="route-grid"></div>
             </div>
+
+            <div class="overlay-section">
+              <h2 class="section-title">どれくらい はやく はしる？</h2>
+              <div class="difficulty-grid">
+                <button class="diff-btn selected" data-value="120">
+                  <span class="diff-rank">N</span>
+                  <span class="diff-label">ふつう</span>
+                </button>
+                <button class="diff-btn" data-value="60">
+                  <span class="diff-rank">H</span>
+                  <span class="diff-label">むずかしい</span>
+                </button>
+                <button class="diff-btn" data-value="30">
+                  <span class="diff-rank">O</span>
+                  <span class="diff-label">おに</span>
+                </button>
+                <button class="diff-btn" data-value="endless">
+                  <span class="diff-rank">∞</span>
+                  <span class="diff-label">むせいげん</span>
+                </button>
+              </div>
+            </div>
+
             <button id="startButton" class="start-action-btn">しゅっぱつ！</button>
+            
+            <p id="overlayCopy" class="overlay-copy"></p>
           </div>
           <div id="debugLog" class="debug-log"></div>
         </div>
@@ -65,7 +77,6 @@
             </div>
           </div>
         </footer>
-        <div id="routeButtons" class="route-buttons" aria-label="Route choices"></div>
       </section>
     </main>
 

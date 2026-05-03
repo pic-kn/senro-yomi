@@ -348,51 +348,81 @@ canvas {
   color: #94a3b8;
 }
 
-.route-buttons {
-  background: var(--panel);
-  border-top: 3px solid var(--line);
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-  padding: 20px 24px;
+.overlay-section {
+  width: 100%;
+  margin-bottom: 32px;
+  flex-shrink: 0;
 }
 
+.section-title {
+  color: white;
+  font-size: clamp(18px, 4vw, 22px);
+  font-weight: 900;
+  margin-bottom: 16px;
+  text-shadow: 2px 2px 0 rgba(0,0,0,0.1);
+}
+
+.route-grid {
+  display: flex;
+  overflow-x: auto;
+  gap: 16px;
+  padding: 10px 20px 20px;
+  -webkit-overflow-scrolling: touch;
+  justify-content: flex-start;
+  width: calc(100% + 40px);
+  margin: 0 -20px;
+}
+
+.route-grid::-webkit-scrollbar { display: none; }
+
 .route-choice {
+  flex: 0 0 140px;
+  height: 90px;
+  background: white;
+  border: 5px solid #eee;
+  border-radius: 20px;
+  cursor: pointer;
+  padding: 10px;
+  transition: all 0.2s ease;
+  box-shadow: 0 8px 15px rgba(0,0,0,0.05);
+  display: flex;
   align-items: center;
-  background: var(--panel);
-  border: 3px solid var(--line);
-  border-radius: 8px;
-  color: var(--text);
-  display: inline-flex;
-  font-weight: 800;
-  gap: 10px;
-  min-height: 48px;
-  padding: 0 24px;
-  box-shadow: 3px 3px 0 var(--line);
+  justify-content: center;
 }
 
 .route-choice.active {
-  background: var(--primary);
-  color: white;
-  border-color: white;
-  box-shadow: 0 0 0 4px var(--primary), 4px 4px 0 rgba(0,0,0,0.1);
+  border-color: var(--primary);
+  background: white;
+  box-shadow: 0 0 0 4px var(--primary), 0 10px 20px rgba(0,0,0,0.1);
   transform: translateY(-4px);
 }
 
-.route-choice:hover {
-  transform: translate(2px, 2px);
-  box-shadow: 1px 1px 0 var(--line);
+.route-card-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
 }
 
 .route-swatch {
-  border-radius: 2px; /* 丸ではなく四角く */
-  display: inline-block;
-  height: 16px;
-  width: 24px;
-  border: 2px solid white;
+  width: 40px;
+  height: 10px;
+  border-radius: 5px;
+  border: 2px solid rgba(0,0,0,0.1);
 }
 
-  .route-choice { flex: 1 1 calc(50% - 8px); justify-content: center; min-height: 44px; padding: 0 12px; }
+.route-name {
+  font-size: 16px;
+  font-weight: 900;
+  color: var(--text);
+}
+
+.overlay-copy {
+  margin-top: 24px;
+  font-size: 14px;
+  font-weight: 800;
+  color: white;
+  opacity: 0.8;
 }
 
 .debug-log {
