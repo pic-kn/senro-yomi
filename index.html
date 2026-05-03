@@ -35,6 +35,15 @@
           <div id="overlay" class="overlay">
             <h1>せんろ よみ</h1>
             <p>ひだりからじゅんばんに、こえにだしてよもう。まいくをつかうよ。</p>
+            <div class="overlay-settings">
+              <span>じかんを えらんでね：</span>
+              <select id="difficultySelect">
+                <option value="120">ふつう（120びょう）</option>
+                <option value="60">むずかしい（60びょう）</option>
+                <option value="30">おに（30びょう）</option>
+                <option value="endless">むせいげん</option>
+              </select>
+            </div>
             <button id="primaryAction" type="button">はじめる</button>
           </div>
           <div id="debugLog" class="debug-log"></div>
@@ -42,15 +51,6 @@
 
         <footer class="controls">
           <div class="controls-main">
-            <label class="toggle-wrapper">
-              <span>じかん：</span>
-              <select id="difficultySelect">
-                <option value="120">ふつう（120びょう）</option>
-                <option value="60">むずかしい（60びょう）</option>
-                <option value="30">おに（30びょう）</option>
-                <option value="endless">むせいげん</option>
-              </select>
-            </label>
             <div class="status-indicator">
               <div id="statusFeedback" class="status-feedback">まいくをおしてね</div>
               <div id="statusTranscript" class="status-transcript">ひだりから よんでね</div>
