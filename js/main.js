@@ -329,19 +329,21 @@ function frame(now) {
   state.correctFlashTimer = Math.max(0, state.correctFlashTimer - dt);
 
   const route = getCurrentRoute();
-  const points = getRoutePoints(route);
+  const points = getRoutePoints(route, logicalWidth, logicalHeight);
   const targetIndex = Math.min(state.index, points.length - 1);
   const targetPoint = points[targetIndex];
 
+  // ページ番号からターゲットのカメラX座標を計算
+  const targetCameraX = targetPoint.page * logicalWidth;
+
   if (!state.cameraInitialized) {
-    state.cameraX = targetPoint.x;
-    state.cameraY = targetPoint.y;
+    state.cameraX = targetCameraX;
+    state.cameraY = 0;
     state.cameraInitialized = true;
   } else {
-    // フレームレート非依存の滑らかなLerp補間
-    const lerpSpeed = 1 - Math.exp(-6 * dt);
-    state.cameraX += (targetPoint.x - state.cameraX) * lerpSpeed;
-    state.cameraY += (targetPoint.y - state.cameraY) * lerpSpeed;
+    // ページ切り替え時は速めにスライド
+    const lerpSpeed = 1 - Math.exp(-8 * dt);
+    state.cameraX += (targetCameraX - state.cameraX) * lerpSpeed;
   }
 
   renderCanvas(renderer.ctx, logicalWidth, logicalHeight, state, route, assets);
