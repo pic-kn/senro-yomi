@@ -151,26 +151,29 @@ canvas {
 
 .overlay {
   align-items: center;
-  background: var(--bg); /* 背景色と統一して一体感を出す */
+  background: var(--bg);
   display: flex;
   flex-direction: column;
   inset: 0;
-  justify-content: center;
-  padding: 28px;
+  justify-content: flex-start; /* 上から順に配置 */
+  padding: 40px 20px;
   position: absolute;
   text-align: center;
   z-index: 20;
+  overflow-y: auto; /* はみ出したらスクロール可能に */
+  -webkit-overflow-scrolling: touch;
 }
 
 .overlay h1.logo-text {
   color: var(--primary);
-  font-size: clamp(60px, 12vw, 120px);
+  font-size: clamp(48px, 10vw, 90px);
   font-weight: 900;
-  margin: 0 0 60px;
+  margin: 0 0 32px;
   letter-spacing: -2px;
   filter: drop-shadow(0 10px 0 rgba(0,0,0,0.1));
-  -webkit-text-stroke: 12px white;
+  -webkit-text-stroke: 10px white;
   paint-order: stroke fill;
+  flex-shrink: 0;
 }
 
 .difficulty-grid {
@@ -278,11 +281,16 @@ canvas {
 }
 
 @media (max-width: 768px) {
+  .overlay { padding: 20px 16px; }
+  .overlay h1.logo-text { font-size: 40px; -webkit-text-stroke: 6px white; margin-bottom: 20px; }
+  
   .start-action-btn {
-    margin-top: 30px;
+    margin-top: 24px;
     font-size: 24px;
     padding: 12px 60px;
-    width: 80%;
+    width: 90%;
+    flex-shrink: 0;
+    margin-bottom: 30px; /* 下に余白を確保してスクロールしやすく */
   }
   .difficulty-grid {
     display: grid;
