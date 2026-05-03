@@ -49,40 +49,50 @@ export function fireConfetti(durationMs = 4000) {
     if (!canvas) return;
     ctx = canvas.getContext('2d');
     
+    let logicalWidth = 0;
+    let logicalHeight = 0;
     const resize = () => {
-      canvas.width = canvas.offsetWidth;
-      canvas.height = canvas.offsetHeight;
+      logicalWidth = canvas.offsetWidth;
+      logicalHeight = canvas.offsetHeight;
+      const dpr = window.devicePixelRatio || 1;
+      canvas.width = logicalWidth * dpr;
+      canvas.height = logicalHeight * dpr;
+      ctx.setTransform(1, 0, 0, 1, 0, 0);
+      ctx.scale(dpr, dpr);
     };
     window.addEventListener('resize', resize);
     resize();
   }
 
+  const lw = canvas.offsetWidth;
+  const lh = canvas.offsetHeight;
   particles = [];
   for (let i = 0; i < 180; i++) {
-    particles.push(new Particle(canvas.width, canvas.height));
+    particles.push(new Particle(lw, lh));
   }
 
   const startTime = performance.now();
 
   function loop(now) {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    const lw = canvas.offsetWidth;
+    const lh = canvas.offsetHeight;
+    ctx.clearRect(0, 0, lw, lh);
     
     const timePassed = now - startTime;
     
-    // 指定時間が過ぎたら、新しいパーティクルは上から降らせず、下へ消えていくようにする
     if (timePassed > durationMs) {
-      particles = particles.filter(p => p.y < canvas.height);
+      particles = particles.filter(p => p.y < lh);
     }
 
     particles.forEach(p => {
-      p.update(canvas.width, canvas.height);
+      p.update(lw, lh);
       p.draw(ctx);
     });
 
     if (particles.length > 0) {
       animationId = requestAnimationFrame(loop);
     } else {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.clearRect(0, 0, lw, lh);
       cancelAnimationFrame(animationId);
     }
   }

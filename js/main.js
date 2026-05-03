@@ -10,6 +10,23 @@ let recognitionRestartTimer = 0;
 let animationId = 0;
 let lastTime = 0;
 
+let logicalWidth = 960;
+let logicalHeight = 540;
+
+function resizeCanvas() {
+  const stageWrap = document.getElementById("stageWrap");
+  if (!stageWrap || !renderer || !renderer.canvas) return;
+  
+  logicalWidth = stageWrap.clientWidth || 960;
+  logicalHeight = stageWrap.clientHeight || 540;
+  const dpr = window.devicePixelRatio || 1;
+  
+  renderer.canvas.width = logicalWidth * dpr;
+  renderer.canvas.height = logicalHeight * dpr;
+  renderer.ctx.setTransform(1, 0, 0, 1, 0, 0);
+  renderer.ctx.scale(dpr, dpr);
+}
+
 let currentRouteKey = "midosuji";
 const bestTimePrefix = "line-call-quest-best-time";
 const rewardKey = "line-call-quest-rewards";
@@ -289,7 +306,7 @@ function selectRoute(key) {
   renderRouteButtons();
   syncHud();
   const route = getCurrentRoute();
-  renderCanvas(renderer.ctx, renderer.canvas, state, route, assets);
+  renderCanvas(renderer.ctx, logicalWidth, logicalHeight, state, route, assets);
   showOverlay("せんろ よみ", `${route.shortName}を、ひだりからじゅんばんによもう。`, "はじめる");
 }
 
@@ -309,7 +326,7 @@ function frame(now) {
   state.correctFlashTimer = Math.max(0, state.correctFlashTimer - dt);
 
   const route = getCurrentRoute();
-  renderCanvas(renderer.ctx, renderer.canvas, state, route, assets);
+  renderCanvas(renderer.ctx, logicalWidth, logicalHeight, state, route, assets);
   
   animationId = requestAnimationFrame(frame);
 }
@@ -327,12 +344,15 @@ endlessToggle.addEventListener("change", (e) => {
 
 document.addEventListener("DOMContentLoaded", () => {
   renderer = initRenderer("gameCanvas");
+  window.addEventListener("resize", resizeCanvas);
+  resizeCanvas();
+
   state = createState();
   renderRouteButtons();
   syncHud();
   
   const route = getCurrentRoute();
-  renderCanvas(renderer.ctx, renderer.canvas, state, route, assets);
+  renderCanvas(renderer.ctx, logicalWidth, logicalHeight, state, route, assets);
   showOverlay("せんろ よみ", `${route.shortName}を、ひだりからじゅんばんによもう。`, "はじめる");
   
   animationId = requestAnimationFrame(frame);
