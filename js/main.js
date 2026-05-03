@@ -61,6 +61,7 @@ function createState() {
   return {
     mode: "ready",
     isEndless: state.isEndless,
+    roundDuration: state.roundDuration || 120,
     sheet: route.stations,
     index: 0,
     elapsed: 0,
@@ -92,7 +93,7 @@ const rewardEl = document.querySelector("#reward");
 const overlay = document.querySelector("#overlay");
 const primaryAction = document.querySelector("#primaryAction");
 const routeButtons = document.querySelector("#routeButtons");
-const endlessToggle = document.querySelector("#endlessToggle");
+const difficultySelect = document.querySelector("#difficultySelect");
 const statusFeedbackEl = document.querySelector("#statusFeedback");
 const statusTranscriptEl = document.querySelector("#statusTranscript");
 
@@ -117,7 +118,7 @@ function estimateAccuracy() {
 
 function syncHud() {
   const total = state.sheet.length;
-  const remaining = state.isEndless ? 999 : Math.max(0, roundDuration - state.elapsed);
+  const remaining = state.isEndless ? 999 : Math.max(0, state.roundDuration - state.elapsed);
   const completed = state.mode === "finished" && state.index >= total;
   timeLabelEl.textContent = completed ? "かかった" : "のこり";
   timeEl.textContent = completed ? formatTime(state.elapsed) : formatTime(remaining);
@@ -367,8 +368,15 @@ primaryAction.addEventListener("click", () => {
   else if (state.mode === "paused") togglePause();
 });
 
-endlessToggle.addEventListener("change", (e) => {
-  state.isEndless = e.target.checked;
+difficultySelect.addEventListener("change", (e) => {
+  const val = e.target.value;
+  if (val === "endless") {
+    state.isEndless = true;
+    state.roundDuration = 999;
+  } else {
+    state.isEndless = false;
+    state.roundDuration = parseInt(val, 10);
+  }
   syncHud();
 });
 
