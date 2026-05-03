@@ -124,7 +124,6 @@ function syncHud() {
   progressEl.textContent = state.mode === "playing" ? "よんでね" : `${Math.min(state.index, total)}/${total}`;
   bestEl.textContent = formatTime(state.bestTime);
   accuracyEl.textContent = `${estimateAccuracy()}%`;
-  rewardEl.textContent = state.rewardCount;
   
   if (statusFeedbackEl) statusFeedbackEl.textContent = state.feedback;
   if (statusTranscriptEl) statusTranscriptEl.textContent = state.mode === "finished" ? "できた" : "ひだりから よんでね";
