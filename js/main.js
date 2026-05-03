@@ -307,11 +307,9 @@ function renderRouteButtons() {
     const button = document.createElement("button");
     button.type = "button";
     button.className = `route-choice${key === currentRouteKey ? " active" : ""}`;
+    button.style.backgroundColor = route.color;
     button.innerHTML = `
-      <div class="route-card-inner">
-        <span class="route-swatch" style="background-color: ${route.color}"></span>
-        <span class="route-name">${route.shortName}</span>
-      </div>
+      <span class="route-name">${route.shortName}</span>
     `;
     button.addEventListener("click", () => selectRoute(key));
     container.appendChild(button);
