@@ -151,13 +151,18 @@ function scheduleRecognitionRestart() {
   }, 400);
 }
 
+const debugLogEl = document.querySelector("#debugLog");
+
 function handleSpokenText(text, isFinal) {
   if (state.mode !== "playing" || state.index >= state.sheet.length) return;
   state.transcript = text.trim() || "--";
   
-  if (isFinal && state.transcript !== "--") {
-    state.transcriptLog.push(state.transcript);
-    
+  if (debugLogEl) {
+    debugLogEl.textContent = `認識: "${text}"\n状態: ${isFinal ? "確定" : "途中"}\n次: ${state.sheet[state.index]?.kana}`;
+  }
+  
+  if (state.transcript !== "--") {
+    // 中間結果（isFinal=false）でも、一致していれば即座に「正解（早押し）」とする！
     if (tokenMatches(state.sheet[state.index], text)) {
       playSound('correct');
       state.correctFlashIndex = state.index;
@@ -167,16 +172,24 @@ function handleSpokenText(text, isFinal) {
       state.feedback = "できた";
       state.feedbackTimer = 0.35;
       
+      // 正解した場合はログに残す
+      state.transcriptLog.push(state.transcript);
+      
       if (state.index >= state.sheet.length) {
         finishRound();
         return;
       }
-    } else if (state.sheet.some((station) => tokenMatches(station, text))) {
-      state.feedback = "じゅんばんにいこう";
-      state.attempts += 1;
-    } else {
-      state.feedback = "きいてるよ";
-      state.attempts += 1;
+    } else if (isFinal) {
+      // 確定(isFinal)まで待って不正解だった場合のみ、エラー系処理を行う
+      state.transcriptLog.push(state.transcript);
+      
+      if (state.sheet.some((station) => tokenMatches(station, text))) {
+        state.feedback = "じゅんばんにいこう";
+        state.attempts += 1;
+      } else {
+        state.feedback = "きいてるよ";
+        state.attempts += 1;
+      }
     }
   }
   syncHud();
