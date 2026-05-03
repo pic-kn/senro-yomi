@@ -414,7 +414,7 @@ document.addEventListener("DOMContentLoaded", () => {
   
   const route = getCurrentRoute();
   renderCanvas(renderer.ctx, logicalWidth, logicalHeight, state, route, assets);
-  showOverlay("せんろ よみ", `${route.shortName}を、ひだりからじゅんばんによもう。`, "はじめる");
+  showOverlay("ハヤよみ特急", `${route.shortName}を、ひだりからじゅんばんによもう。`, "はじめる");
   
   animationId = requestAnimationFrame(frame);
 });
