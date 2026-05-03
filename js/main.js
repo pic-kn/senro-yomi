@@ -401,6 +401,9 @@ overlay.addEventListener("click", (e) => {
 const startButton = document.querySelector("#startButton");
 if (startButton) {
   startButton.addEventListener("click", () => {
+    // まず画面を隠す
+    hideOverlay();
+    
     // 現在の設定を保持
     const nextDuration = state.roundDuration;
     const nextEndless = state.isEndless;

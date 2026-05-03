@@ -131,7 +131,7 @@ button:active {
   flex: 1; /* 残りの高さをすべて使う */
   position: relative;
   width: 100%;
-  background: #f8fafc;
+  background: var(--bg);
   overflow: hidden;
   display: flex;
   align-items: center;
@@ -177,6 +177,10 @@ canvas {
 
 @media (max-width: 768px) {
   .overlay { bottom: 100px; }
+}
+
+.overlay.hidden {
+  display: none !important;
 }
 
 .overlay h1.logo-text {
