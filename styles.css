@@ -300,10 +300,35 @@ canvas {
   box-shadow: 3px 3px 0 var(--line);
 }
 
-.toggle-wrapper input[type="checkbox"] {
-  width: 20px;
-  height: 20px;
-  accent-color: var(--primary);
+.toggle-wrapper select {
+  appearance: none;
+  -webkit-appearance: none;
+  background-color: #fff;
+  border: 2px solid var(--line);
+  border-radius: 6px;
+  padding: 6px 36px 6px 12px;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 800;
+  color: var(--text);
+  cursor: pointer;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23334155' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  background-size: 18px;
+  box-shadow: 2px 2px 0 var(--line);
+  transition: all 0.1s ease;
+}
+
+.toggle-wrapper select:hover {
+  background-color: #f8fafc;
+  transform: translate(1px, 1px);
+  box-shadow: 1px 1px 0 var(--line);
+}
+
+.toggle-wrapper select:focus {
+  outline: none;
+  border-color: var(--primary);
 }
 
 @media (max-width: 768px) {
