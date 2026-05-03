@@ -385,21 +385,15 @@ overlay.addEventListener("click", (e) => {
     state.roundDuration = parseInt(val, 10);
   }
   
-  // 開始前にステートをリセットしてモードをplayingにする
-  const oldDuration = state.roundDuration;
-  const oldEndless = state.isEndless;
-  state = createState();
-  state.roundDuration = oldDuration;
-  state.isEndless = oldEndless;
-  state.mode = "playing";
+  // startRound内でcreateStateが呼ばれるため、現在の設定を一旦保持
+  const nextDuration = state.roundDuration;
+  const nextEndless = state.isEndless;
   
-  initAudio();
-  hideOverlay();
-  lastTime = performance.now();
+  startRound();
   
-  if (recognition) {
-    try { recognition.start(); } catch(e) { state.feedback = "まいくがつかえないよ"; }
-  }
+  // startRound実行後に設定を上書き
+  state.roundDuration = nextDuration;
+  state.isEndless = nextEndless;
   syncHud();
 });
 
