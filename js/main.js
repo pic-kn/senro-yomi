@@ -388,19 +388,24 @@ overlay.addEventListener("click", (e) => {
     state.isEndless = false;
     state.roundDuration = parseInt(val, 10);
   }
-  
-  // 設定を保持
-  const nextDuration = state.roundDuration;
-  const nextEndless = state.isEndless;
-  
-  // 選択アニメーションを見せてから開始
-  setTimeout(() => {
+});
+
+// スタートボタンのイベント
+const startButton = document.querySelector("#startButton");
+if (startButton) {
+  startButton.addEventListener("click", () => {
+    // 現在の設定を保持
+    const nextDuration = state.roundDuration;
+    const nextEndless = state.isEndless;
+    
     startRound();
+    
+    // startRound実行後に設定を適用
     state.roundDuration = nextDuration;
     state.isEndless = nextEndless;
     syncHud();
-  }, 150);
-});
+  });
+}
 
 document.addEventListener("DOMContentLoaded", () => {
   renderer = initRenderer("gameCanvas");

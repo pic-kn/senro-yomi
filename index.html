@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <title>ハヤよみ特急</title>
-    <link rel="stylesheet" href="./styles.css?v=2.2" />
+    <link rel="stylesheet" href="./styles.css?v=2.3" />
   </head>
   <body>
     <main class="shell">
@@ -35,7 +35,7 @@
           <div id="overlay" class="overlay">
             <h1 class="logo-text">ハヤよみ特急</h1>
             <div class="difficulty-grid">
-              <button class="diff-btn" data-value="120">
+              <button class="diff-btn selected" data-value="120">
                 <span class="diff-rank">N</span>
                 <span class="diff-label">ふつう</span>
               </button>
@@ -52,6 +52,7 @@
                 <span class="diff-label">むせいげん</span>
               </button>
             </div>
+            <button id="startButton" class="start-action-btn">しゅっぱつ！</button>
           </div>
           <div id="debugLog" class="debug-log"></div>
         </div>

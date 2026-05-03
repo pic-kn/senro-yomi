@@ -253,7 +253,37 @@ canvas {
 .diff-btn[data-value="30"] { background: linear-gradient(135deg, #f87171, #ef4444); color: white; }
 .diff-btn[data-value="endless"] { background: linear-gradient(135deg, #34d399, #10b981); color: white; }
 
+.start-action-btn {
+  margin-top: 50px;
+  background: var(--primary);
+  color: white;
+  border: 6px solid white;
+  border-radius: 50px;
+  font-size: 32px;
+  font-weight: 900;
+  padding: 16px 80px;
+  cursor: pointer;
+  box-shadow: 0 10px 0 #db2777, 0 15px 30px rgba(0,0,0,0.1);
+  transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.start-action-btn:hover {
+  transform: translateY(-5px) scale(1.05);
+  box-shadow: 0 15px 0 #db2777, 0 20px 40px rgba(0,0,0,0.15);
+}
+
+.start-action-btn:active {
+  transform: translateY(5px) scale(0.95);
+  box-shadow: 0 2px 0 #db2777;
+}
+
 @media (max-width: 768px) {
+  .start-action-btn {
+    margin-top: 30px;
+    font-size: 24px;
+    padding: 12px 60px;
+    width: 80%;
+  }
   .difficulty-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
