@@ -163,14 +163,20 @@ canvas {
   background: var(--bg);
   display: flex;
   flex-direction: column;
-  inset: 0;
-  justify-content: flex-start; /* 上から順に配置 */
-  padding: 40px 20px;
   position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 110px; /* フッターの高さ分を空ける */
+  padding: 40px 20px;
   text-align: center;
   z-index: 20;
-  overflow-y: auto; /* はみ出したらスクロール可能に */
+  overflow-y: auto;
   -webkit-overflow-scrolling: touch;
+}
+
+@media (max-width: 768px) {
+  .overlay { bottom: 90px; }
 }
 
 .overlay h1.logo-text {
